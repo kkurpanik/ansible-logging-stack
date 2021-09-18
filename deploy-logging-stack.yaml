@@ -1,7 +1,7 @@
 ---
 - name: Deploy MongoDB
   hosts: mongodb
-  become: True
+  become: true 
   roles:
     - name: mongodb
   vars:
@@ -9,7 +9,7 @@
 
 - name: Deploy Elasticsearch
   hosts: es
-  become: True
+  become: true
   roles:
     - name: elasticsearch
   vars:
@@ -20,21 +20,22 @@
     es_config:
       node.name: "master-node"
       cluster.name: "my-cluster"
+      cluster.initial_master_nodes: "localhost"
       discovery.seed_hosts: "localhost:9300"
       http.port: 9200
       transport.port: 9300
-      node.data: False
-      node.master: True
-      bootstrap.memory_lock: True
+      node.data: false
+      node.master: true
+      bootstrap.memory_lock: true
     es_heap_size: 1g
-    es_start_service: True
+    es_start_service: true
     es_api_port: 9200
     es_plugins:
       - plugin: ingest-attachment
 
 - name: Deploy Graylog
   hosts: graylog
-  become: True
+  become: true
   roles:
     - name: graylog
   vars:
