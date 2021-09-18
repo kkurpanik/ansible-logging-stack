@@ -12,7 +12,7 @@
   roles:
     - name: elasticsearch
   vars:
-    es_version: 7.10.0
+    es_version: 7.10.2
     es_data_dirs:
       - "/opt/elasticsearch/data"
     es_log_dir: "/opt/elasticsearch/logs"
