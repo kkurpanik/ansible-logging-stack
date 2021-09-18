@@ -9,6 +9,7 @@
 
 - name: Deploy Elasticsearch
   hosts: es
+  become: True
   roles:
     - name: elasticsearch
   vars:
@@ -33,6 +34,7 @@
 
 - name: Deploy Graylog
   hosts: graylog
+  become: True
   roles:
     - name: graylog
   vars:
