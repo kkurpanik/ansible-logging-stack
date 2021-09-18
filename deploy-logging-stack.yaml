@@ -1,5 +1,6 @@
-- name: Deploy logging stack with Graylog
-  hosts: all
+---
+- name: Deploy MongoDB
+  hosts: mongodb
   become: True
   roles:
     - name: mongodb
