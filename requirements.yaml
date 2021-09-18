@@ -1,0 +1,4 @@
+---
+- name: mongodb
+  src: https://github.com/kkurpanik/ansible-roles-mongodb.git
+  version: main

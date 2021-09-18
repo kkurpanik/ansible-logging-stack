@@ -1,0 +1,7 @@
+- name: Deploy logging stack with Graylog
+  hosts: all
+  become: True
+  roles:
+    - name: mongodb
+      vars:
+        mongodb_version: "4.4"
