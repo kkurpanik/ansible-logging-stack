@@ -20,7 +20,7 @@
     es_config:
       node.name: "master-node"
       cluster.name: "my-cluster"
-      cluster.initial_master_nodes: "localhost"
+      cluster.initial_master_nodes: "master-node"
       discovery.seed_hosts: "localhost:9300"
       http.port: 9200
       transport.port: 9300
