@@ -7,8 +7,8 @@
   vars:
     mongodb_version: "4.4"
 
-- name: Deploy Elasticsearch
-  hosts: es
+- name: Deploy Elasticsearch Master Nodes
+  hosts: esmaster
   become: true
   roles:
     - name: elasticsearch
@@ -18,18 +18,44 @@
       - "/opt/elasticsearch/data"
     es_log_dir: "/opt/elasticsearch/logs"
     es_config:
-      node.name: "master-node"
-      cluster.name: "my-cluster"
-      cluster.initial_master_nodes: "master-node"
-      discovery.seed_hosts: "localhost:9300"
+      cluster.name: "es-cluster"
+      cluster.initial_master_nodes: "dev1.labk8s.pl"
+      discovery.seed_hosts: "dev1.labk8s.pl:9300"
+      http.host: 0.0.0.0
       http.port: 9200
-      transport.port: 9300
       node.data: true
       node.master: true
-      bootstrap.memory_lock: true
+      transport.host: 0.0.0.0
+      transport.port: 9300
+      bootstrap.memory_lock: false
     es_heap_size: 1g
     es_start_service: true
-    es_api_port: 9200
+    es_plugins:
+      - plugin: ingest-attachment
+
+- name: Deploy Elasticserach Data Nodes
+  hosts: esdata
+  become: true
+  roles:
+    - name: elasticsearch
+  vars:
+    es_version: 7.10.2
+    es_data_dirs:
+      - "/opt/elasticsearch/data"
+    es_log_dir: "/opt/elasticsearch/logs"
+    es_config:
+      cluster.name: "es-cluster"
+      cluster.initial_master_nodes: "dev1.labk8s.pl"
+      discovery.seed_hosts: "dev1.labk8s.pl:9300"
+      http.host: 0.0.0.0
+      http.port: 9200
+      node.data: true
+      node.master: false
+      transport.host: 0.0.0.0
+      transport.port: 9300
+      bootstrap.memory_lock: false    
+    es_heap_size: 1g
+    es_start_service: true
     es_plugins:
       - plugin: ingest-attachment
 
