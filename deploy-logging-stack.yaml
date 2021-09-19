@@ -66,5 +66,5 @@
     - name: graylog
   vars:
     graylog_version: "4.1"
-    graylog_elasticsearch_hosts: "http://dev1.labk8s.pl,http://dev2.labk8s.pl"
+    graylog_elasticsearch_hosts: "http://dev1.labk8s.pl:9200,http://dev2.labk8s.pl:9200"
     graylog_mongodb_uri: "mongodb://dev3.labk8s.pl:27017/graylog"
