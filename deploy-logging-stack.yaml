@@ -1,16 +1,34 @@
 ---
 - name: Deploy MongoDB
+  tags: mongodb
   hosts: mongodb
-  become: true 
-  roles:
-    - name: mongodb
-  vars:
-    mongodb_version: "4.4"
-
-- name: Deploy Elasticsearch Master Nodes
-  hosts: esmaster
   become: true
+  gather_facts: true
   roles:
+    - name: custom_mongodb
+    - name: community.mongodb.mongodb_repository
+    - name: community.mongodb.mongodb_install
+    - name: community.mongodb.mongodb_mongod
+    - name: community.mongodb.mongodb_auth
+  vars:
+    debian:
+      apt_key_url: "https://www.mongodb.org/static/pgp/server-{{ mongodb_version }}.asc"
+      apt_repository_repo: "deb https://repo.mongodb.org/apt/debian buster/mongodb-org/{{ mongodb_version }} main"
+    mongodb_host: "{{ bind_ip }}"
+    replicaset: false
+    mongodb_users:
+      - user: "graylog"
+        db: "graylog"
+        pwd: "{{ mongodb_graylog_password }}"
+        roles: "readWrite,dbAdmin"
+
+- name: Deploy Elasticsearch Master Node
+  tags: es
+  hosts: elasticsearch_master
+  become: true
+  gather_facts: true
+  roles:
+    - name: custom_es
     - name: elasticsearch
   vars:
     es_version: 7.10.2
@@ -18,12 +36,12 @@
       - "/opt/elasticsearch/data"
     es_log_dir: "/opt/elasticsearch/logs"
     es_config:
-      cluster.name: "es-cluster"
-      cluster.initial_master_nodes: "dev1.labk8s.pl"
-      discovery.seed_hosts: "dev1.labk8s.pl:9300"
+      cluster.name: "graylog-cluster"
+      cluster.initial_master_nodes: "{{ es_initial_master_node }}"
+      discovery.seed_hosts: "{{ es_initial_master_node }}:9300"
       http.host: 0.0.0.0
       http.port: 9200
-      node.data: true
+      node.data: "{{ is_data_node }}"
       node.master: true
       transport.host: 0.0.0.0
       transport.port: 9300
@@ -34,9 +52,12 @@
       - plugin: ingest-attachment
 
 - name: Deploy Elasticserach Data Nodes
-  hosts: esdata
+  tags: es
+  hosts: elasticsearch_data
   become: true
+  gather_facts: true
   roles:
+    - name: custom_es
     - name: elasticsearch
   vars:
     es_version: 7.10.2
@@ -44,27 +65,35 @@
       - "/opt/elasticsearch/data"
     es_log_dir: "/opt/elasticsearch/logs"
     es_config:
-      cluster.name: "es-cluster"
-      cluster.initial_master_nodes: "dev1.labk8s.pl"
-      discovery.seed_hosts: "dev1.labk8s.pl:9300"
+      cluster.name: "graylog-cluster"
+      cluster.initial_master_nodes: "{{ es_initial_master_node }}"
+      discovery.seed_hosts: "{{ es_initial_master_node }}:9300"
       http.host: 0.0.0.0
       http.port: 9200
       node.data: true
       node.master: false
       transport.host: 0.0.0.0
       transport.port: 9300
-      bootstrap.memory_lock: false    
+      bootstrap.memory_lock: false
     es_heap_size: 1g
     es_start_service: true
     es_plugins:
       - plugin: ingest-attachment
 
 - name: Deploy Graylog
+  tags: graylog
   hosts: graylog
   become: true
+  gather_facts: true
   roles:
     - name: graylog
   vars:
-    graylog_version: "4.1"
-    graylog_elasticsearch_hosts: "http://dev1.labk8s.pl:9200,http://dev2.labk8s.pl:9200"
-    graylog_mongodb_uri: "mongodb://dev3.labk8s.pl:27017/graylog"
+    graylog_mongodb_uri: "mongodb://graylog:{{ mongodb_graylog_password }}@{{ bind_ip }}:27017/graylog"
+  
+- name: Deploy Nginx
+  tags: nginx
+  hosts: graylog
+  become: true
+  gather_facts: true
+  roles:
+    - name: nginx
