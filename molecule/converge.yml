@@ -1,0 +1,33 @@
+---
+- name: Setup MongoDB
+  hosts: all
+  become: true
+  gather_facts: true
+  roles:
+    - name: custom_mongodb
+    - name: community.mongodb.mongodb_repository
+    - name: community.mongodb.mongodb_install
+    - name: community.mongodb.mongodb_mongod
+    - name: community.mongodb.mongodb_auth
+  vars:
+    mongodb_version: "4.4"
+    debian:
+      apt_key_url: "https://www.mongodb.org/static/pgp/server-{{ mongodb_version }}.asc"
+      apt_repository_repo: "deb https://repo.mongodb.org/apt/debian buster/mongodb-org/{{ mongodb_version }} main"
+    mongodb_host: "127.0.0.1"
+    replicaset: false
+    mongodb_users:
+      - user: "graylog"
+        db: "graylog"
+        pwd: "YourPassword"
+        roles: "readWrite,dbAdmin"
+
+- name: Setup NGNIX
+  hosts: all
+  become: true
+  gather_facts: true
+  roles:
+    - name: "ansible-roles-nginx-proxy"
+  vars:
+    graylog_fqdn: "graylog.YourDomain.pl"
+    bind_ip: "127.0.0.1"
