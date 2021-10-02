@@ -1,11 +1,14 @@
 ---
-- name: Install pip
+- name: Install pip and setuptools
   package:
-    name: python3-pip
+    name: "{{ item }}"
     state: present
   register: _pkg
   until: _pkg is succeeded
   retries: 5
+  with_items:
+    - python3-pip
+    - python3-setuptools
 
 - name: Install Pymongo library
   pip: 
