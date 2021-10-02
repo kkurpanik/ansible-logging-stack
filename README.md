@@ -13,6 +13,7 @@ $ pip3 install -r requirements.txt
 ```
 
 ## Prepare SSL certificate and key files
+Generate Your certificate for NGINX reverse proxy.
 
 ## Installing dependencies
 ```bash
