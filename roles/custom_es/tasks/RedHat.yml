@@ -1,0 +1,14 @@
+---
+- name: Populate service facts
+  service_facts:
+
+- name: Allow Elasticsearch ports on firewall
+  firewalld:
+    port: "{{ item }}/tcp"
+    permanent: true
+    immediate: true
+    state: enabled
+  when: ansible_facts['services']['firewalld.service']['state'] == 'running'
+  with_items:
+    - 9200
+    - 9300
