@@ -1,9 +1,10 @@
 ---
 # Based on ansible-lint config
-extends: default
-
 ignore: |
   /Users/runner/.cache/
+  ../../../.cache/
+
+extends: default
 
 rules:
   braces:
