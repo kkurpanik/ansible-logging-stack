@@ -1,6 +1,6 @@
 ---
 - name: Install pip and setuptools (RedHat7)
-  apt:
+  yum:
     name: "{{ item }}"
     state: present
   register: _pkg
@@ -13,7 +13,7 @@
   when: ansible_facts['distribution_major_version'] == "7"
 
 - name: Install pip and setuptools (RedHat8)
-  apt:
+  yum:
     name: "{{ item }}"
     state: present
   register: _pkg
