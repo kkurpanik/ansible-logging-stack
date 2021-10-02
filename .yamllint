@@ -1,7 +1,7 @@
 ---
 # Based on ansible-lint config
 ignore: |
-  **/.cache/
+  *elasticsearch*
 
 extends: default
 
