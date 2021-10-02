@@ -9,11 +9,13 @@
   with_items:
     - python3-pip
     - python3-setuptools
-    - python-setuptools
 
 - name: Install Pymongo library
   pip: 
-    name: pymongo
+    name: " {{ item }} "
+  with_items:
+    - setuptools
+    - pymongo
 
 - name: Populate service facts
   service_facts:
