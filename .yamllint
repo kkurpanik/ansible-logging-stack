@@ -1,8 +1,7 @@
 ---
 # Based on ansible-lint config
 ignore: |
-  /Users/runner/.cache/
-  ../../../.cache/
+  **/.cache/
 
 extends: default
 
