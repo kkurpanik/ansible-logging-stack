@@ -1,18 +1,10 @@
 ---
-- name: Install pip and setuptools
-  package:
-    name: "{{ item }}"
-    state: present
-  register: _pkg
-  until: _pkg is succeeded
-  retries: 5
-  with_items:
-    - python3-pip
-    - python3-setuptools
+- name: Include OS-specific tasks
+  include_tasks: "{{ ansible_facts.os_family }}.yml"
 
 - name: Install Pymongo library
-  command: python3 -m pip install pymongo
-  changed_when: false
+  pip:
+    name: "pymongo"
 
 - name: Populate service facts
   service_facts:
