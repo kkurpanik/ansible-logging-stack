@@ -70,6 +70,7 @@
     graylog_admin_password: "YourPassword"
     graylog_mongodb_uri: "mongodb://graylog:{{ graylog_admin_password }}@127.0.0.1:27017/graylog"
     graylog_fqdn: "graylog.YourDomain.pl"
+    bind_ip: "127.0.0.1"
     graylog_input_gelf_tcp_public_ip: "0.0.0.0"
     graylog_input_gelf_tcp_port: "12201"
     graylog_input_raw_tcp_public_ip: "0.0.0.0"
