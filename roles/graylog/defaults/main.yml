@@ -1,0 +1,42 @@
+---
+graylog_version: "4.1"
+graylog_full_version: "4.1.5-1"
+redhat_packages:
+  - java-1.8.0-openjdk-headless.x86_64
+debian_packages:
+  - apt-transport-https
+  - openjdk-11-jre-headless
+  - uuid-runtime
+  - pwgen
+  - dirmngr
+  - wget
+debian:
+  apt_repository_repo: "https://packages.graylog2.org/repo/packages/graylog-{{ graylog_version }}-repository_latest.deb"
+redhat:
+  yum_baseurl: "https://packages.graylog2.org/repo/packages/graylog-{{ graylog_version }}-repository_latest.rpm"
+  yum_description: "Official Graylog yum repo"
+graylog_is_master: True
+graylog_password_secret: "hnGuHpHHZRKbx5eFgE9wyeFSr05matO8J5m58DBnoxTzpwzd4zVMl0MlmcetlbpwSMWsomQZ7HHN7fJ5hfpfRrfJT75Rsl2F" # generate with pwgen -N 1 -s 96
+graylog_root_username: "admin"
+graylog_root_password: "{{ graylog_admin_password | hash('sha256') }}"
+graylog_root_timezone: "Europe/Warsaw"
+graylog_bin_dir: "/usr/share/graylog-server/bin"
+graylog_data_dir: "/var/lib/graylog-server"
+graylog_plugin_dir: "/usr/share/graylog-server/plugin"
+graylog_message_journal_dir: "/var/lib/graylog-server/journal"
+graylog_content_packs_dir: "/usr/share/graylog-server/contentpacks"
+graylog_http_port: "9000"
+graylog_http_bind_address: "{{ bind_ip }}:{{ graylog_http_port }}"
+graylog_http_publish_uri: "http://{{ graylog_http_bind_address }}/"
+graylog_http_external_uri: "https://{{ graylog_fqdn }}/"
+graylog_http_enable_tls: false
+graylog_http_tls_cert_file: "/etc/nginx/ssl/ssl.crt"
+graylog_http_tls_key_file: "/etc/nginx/ssl/ssl.key"
+graylog_http_tls_key_password: ""
+graylog_http_max_header_size: 8192
+graylog_http_max_initial_line_length: 4096
+graylog_http_thread_pool_size: 16
+graylog_elasticsearch_hosts: "http://127.0.0.1:9200"
+graylog_elasticsearch_shards: 4
+graylog_elasticsearch_replicas: 0
+graylog_mongodb_uri: "mongodb://127.0.0.1:27017/graylog"

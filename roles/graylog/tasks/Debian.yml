@@ -1,0 +1,27 @@
+---
+- name: Install Debian packages
+  apt:
+    name: "{{ debian_packages }}"
+    state: present
+    update_cache: true
+  register: _apt
+  until: _apt is succeeded
+  retries: 5
+
+- name: Ensure Graylog repository exists
+  apt:
+    deb: "{{ debian.apt_repository_repo }}"
+    state: present
+    update_cache: true
+  register: _apt
+  until: _apt is succeeded
+  retries: 5
+
+- name: Install Graylog server
+  apt:
+    name: "graylog-server{% if graylog_full_version is defined %}={{ graylog_full_version }}{% endif %}"
+    state: present
+    update_cache: true
+  register: _apt
+  until: _apt is succeeded
+  retries: 5

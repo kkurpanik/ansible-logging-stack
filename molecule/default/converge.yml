@@ -27,7 +27,50 @@
   become: true
   gather_facts: true
   roles:
-    - name: "ansible-roles-nginx-proxy"
+    - name: nginx
   vars:
     graylog_fqdn: "graylog.YourDomain.pl"
     bind_ip: "127.0.0.1"
+
+- name: Setup Elasticsearch
+  hosts: all
+  become: true
+  gather_facts: true
+  roles:
+    - name: custom_es
+    - name: elasticsearch
+  vars:
+    es_version: 7.10.2
+    es_data_dirs:
+      - "/opt/elasticsearch/data"
+    es_log_dir: "/opt/elasticsearch/logs"
+    es_config:
+      cluster.name: "graylog-cluster"
+      cluster.initial_master_nodes: "127.0.0.1"
+      discovery.seed_hosts: "127.0.0.1:9300"
+      http.host: 0.0.0.0
+      http.port: 9200
+      node.data: true
+      node.master: true
+      transport.host: 0.0.0.0
+      transport.port: 9300
+      bootstrap.memory_lock: false
+    es_heap_size: 1g
+    es_start_service: true
+    es_plugins:
+      - plugin: ingest-attachment
+
+- name: Setup Graylog
+  hosts: all
+  become: true
+  gather_facts: true
+  roles:
+    - name: graylog
+  vars:
+    graylog_admin_password: "YourPassword"
+    graylog_mongodb_uri: "mongodb://graylog:{{ graylog_admin_password }}@127.0.0.1:27017/graylog"
+    graylog_fqdn: "graylog.labk8s.pl"
+    graylog_input_gelf_tcp_public_ip: "0.0.0.0"
+    graylog_input_gelf_tcp_port: "12201"
+    graylog_input_raw_tcp_public_ip: "0.0.0.0"
+    graylog_input_raw_tcp_port: "5555"

@@ -1,0 +1,125 @@
+---
+- name: Include OS-specific tasks
+  include_tasks: "{{ ansible_facts.os_family }}.yml"
+
+- name: Ensure server directory has proper ownership and privileges
+  file:
+    path: "/etc/graylog/server"
+    owner: "graylog"
+    group: "graylog"
+    mode: "0750"
+
+- name: Make sure Graylog server directories exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "graylog"
+    group: "graylog"
+    recurse: true
+    follow: true
+  loop:
+    - "{{ graylog_bin_dir }}"
+    - "{{ graylog_data_dir }}"
+    - "{{ graylog_plugin_dir }}"
+    - "{{ graylog_message_journal_dir }}"
+    - "{{ graylog_content_packs_dir }}"
+
+- name: Configure Graylog server
+  template:
+    src: "server.conf.j2"
+    dest: "/etc/graylog/server/server.conf"
+    owner: "graylog"
+    group: "graylog"
+    mode: "0644"
+    force: true
+  notify: "restart graylog service"
+
+- name: Enable Graylog server autostart
+  service:
+     name: graylog-server
+     enabled: true
+
+- name: Flush handlers
+  meta: flush_handlers
+
+- name: Prepare custom content pack
+  template:
+    src: "content-pack-graylog-custom.json.j2"
+    dest: "/tmp/content-pack-graylog-custom.json"
+    mode: "0644"
+    force: yes
+  delegate_to: localhost
+  tags: content_pack
+
+- name: Save custom content pack as json variable
+  set_fact:
+    content_pack: "{{ lookup('file', '/tmp/content-pack-graylog-custom.json') | from_json }}"
+  tags: content_pack
+
+- name: Verify if custom content pack revision already exists
+  uri:
+    url: "{{ graylog_http_publish_uri }}api/system/content_packs/{{ content_pack.id }}/{{ content_pack.rev }}"
+    method: GET
+    user: admin
+    password: "{{ graylog_admin_password }}"
+    status_code: [200, 404]
+  register: _content_pack_revision
+  tags: content_pack
+
+- name: Upload custom content pack
+  uri:
+    url: "{{ graylog_http_publish_uri }}api/system/content_packs"
+    method: POST
+    user: admin
+    password: "{{ graylog_admin_password }}"
+    body_format: json
+    body: "{{ lookup('file', '/tmp/content-pack-graylog-custom.json') }}"
+    headers:
+      X-Requested-By: api
+    status_code: [200, 201]
+  register: uri_data
+  when: _content_pack_revision.status != 200
+  tags: content_pack
+
+- name: Verify if custom content pack revision is already installed
+  uri:
+    url: "{{ graylog_http_publish_uri }}api/system/content_packs/{{ content_pack.id }}/installations"
+    method: GET
+    user: admin
+    password: "{{ graylog_admin_password }}"
+    status_code: [200, 404]
+  register: _content_pack_installations
+  tags: content_pack
+
+- name: Uninstall content pack
+  uri: 
+    url: "{{ graylog_http_publish_uri }}api/system/content_packs/{{ content_pack.id }}/installations/{{ _content_pack_installations.json.installations[0]._id }}"
+    method: DELETE
+    user: admin
+    password: "{{ graylog_admin_password }}"
+    status_code: [200, 404]
+    headers:
+      X-Requested-By: api
+  when: ( _content_pack_installations.json.installations | length > 0 ) and ( content_pack.rev != _content_pack_installations.json.installations[0].content_pack_revision )
+  tags: content_pack
+
+- name: Install custom content pack {{ content_pack.id }} revision {{ content_pack.rev }}
+  uri:
+    url: "{{ graylog_http_publish_uri }}api/system/content_packs/{{ content_pack.id }}/{{ content_pack.rev }}/installations"
+    method: POST
+    user: admin
+    password: "{{ graylog_admin_password }}"
+    body_format: json
+    body: '{"parameters": {}, "comment": ""}'
+    headers:
+      X-Requested-By: api
+    status_code: [200, 201]
+  tags: content_pack
+  when: ( _content_pack_installations.json.installations | length == 0 ) or ( content_pack.rev != _content_pack_installations.json.installations[0].content_pack_revision )
+
+- name: Remove temporary file
+  file: 
+    path: "/tmp/content-pack-graylog-custom.json"
+    state: absent
+  delegate_to: localhost
+  tags: content_pack
