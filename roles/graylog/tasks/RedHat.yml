@@ -1,0 +1,40 @@
+---
+- name: Install RedHat packages
+  yum:
+    name: "{{ redhat_packages }}"
+    state: present
+  register: _yum
+  until: _yum is succeeded
+  retries: 5
+
+- name: Ensure Graylog repository exists
+  yum:
+    name: "{{ redhat.yum_baseurl }}"
+    state: present
+    disable_gpg_check: True # here, we are installing the package that contains the gpg key
+  register: _yum
+  until: _yum is succeeded
+  retries: 5
+
+- name: Install Graylog server
+  yum:
+    name: "graylog-server{% if graylog_full_version is defined %}-{{ graylog_full_version }}{% endif %}"
+    state: present
+  register: _yum
+  until: _yum is succeeded
+  retries: 5
+
+- name: Populate service facts
+  service_facts:
+
+- name: Allow Graylog ports on firewall
+  firewalld:
+    port: "{{ item }}/tcp"
+    permanent: true
+    immediate: true
+    state: enabled
+  when: ansible_facts['services']['firewalld.service']['state'] == 'running'
+  with_items:
+    - "{{ graylog_http_port }}"
+    - "{{ graylog_input_gelf_tcp_port }}"
+    - "{{ graylog_input_raw_tcp_port }}"

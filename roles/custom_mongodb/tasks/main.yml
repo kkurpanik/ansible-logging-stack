@@ -1,0 +1,43 @@
+---
+- name: Include OS-specific tasks
+  include_tasks: "{{ ansible_facts.os_family }}.yml"
+
+- name: Install Pymongo library
+  pip:
+    name: "pymongo"
+
+- name: Populate service facts
+  service_facts:
+
+- name: Allow MongoDB port on firewall
+  firewalld:
+    port: "27017/tcp"
+    permanent: true
+    immediate: true
+    state: enabled
+  when: ansible_facts['services']['firewalld.service'] is defined and (ansible_facts['services']['firewalld.service']['state'] == 'running' and bind_ip != '127.0.0.1')
+
+- name: Create directory for MongoDB backups
+  file:
+    path: /mongodumps
+    state: directory
+    mode: "0755"
+
+- name: Create credentials for MongoDB backups job
+  copy:
+    content: "{{ mongodb_admin_pwd }}"
+    dest: "/mongodumps/.creds"
+    mode: "0600"
+
+- name: Copy MongoDB backup script
+  copy:
+    src: "mongo_backup.sh"
+    dest: "/mongodumps/mongo_backup.sh"
+    mode: "0755"
+  
+- name: Setup job for MongoDB daily backup
+  cron:
+    name: "MongoDB backup"
+    minute: "0"
+    hour: "2"
+    job: "/mongodumps/mongo_backup.sh >/dev/null 2>&1"

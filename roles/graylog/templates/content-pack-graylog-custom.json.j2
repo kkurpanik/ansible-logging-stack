@@ -1,0 +1,2281 @@
+{
+  "v": 1,
+  "id": "c67753d4-8bb3-452d-8865-a5ca35a0c67f",
+  "rev": 2,
+  "name": "graylog-poc",
+  "summary": "graylog-poc",
+  "description": "graylog-poc",
+  "vendor": "graylog-poc",
+  "url": "",
+  "parameters": [],
+  "entities": [
+    {
+      "v": "1",
+      "type": {
+        "name": "search",
+        "version": "1"
+      },
+      "id": "92ac3474-6e40-4098-ae8d-bb1dfe7673aa",
+      "data": {
+        "summary": {
+          "@type": "string",
+          "@value": ""
+        },
+        "search": {
+          "queries": [
+            {
+              "id": "8e38524a-a92d-41f4-994c-56168d1c8ec2",
+              "timerange": {
+                "type": "relative",
+                "range": 300
+              },
+              "query": {
+                "type": "elasticsearch",
+                "query_string": ""
+              },
+              "search_types": [
+                {
+                  "query": null,
+                  "name": "chart",
+                  "timerange": null,
+                  "streams": [],
+                  "series": [
+                    {
+                      "type": "count",
+                      "id": "count()",
+                      "field": null
+                    }
+                  ],
+                  "filter": null,
+                  "rollup": true,
+                  "row_groups": [
+                    {
+                      "type": "time",
+                      "field": "timestamp",
+                      "interval": {
+                        "type": "auto",
+                        "scaling": 1
+                      }
+                    }
+                  ],
+                  "type": "pivot",
+                  "id": "b776187b-f9b4-42ae-831d-c2a44f179d35",
+                  "column_groups": [],
+                  "sort": []
+                },
+                {
+                  "query": null,
+                  "name": null,
+                  "timerange": null,
+                  "offset": 0,
+                  "streams": [],
+                  "filter": null,
+                  "decorators": [
+                    {
+                      "id": "608b553e64025e5d43ee33db",
+                      "type": "org.graylog2.decorators.LinkFieldDecorator",
+                      "config": {
+                        "link_field": "message"
+                      },
+                      "stream": null,
+                      "order": 0
+                    }
+                  ],
+                  "type": "messages",
+                  "id": "43729395-811a-49c7-a466-259aea6ec59d",
+                  "limit": 150
+                }
+              ]
+            }
+          ],
+          "parameters": [],
+          "requires": {},
+          "owner": "admin",
+          "created_at": "2021-04-30T00:54:22.344Z"
+        },
+        "created_at": "2021-04-30T00:53:27.284Z",
+        "requires": {},
+        "state": {
+          "8e38524a-a92d-41f4-994c-56168d1c8ec2": {
+            "selected_fields": null,
+            "static_message_list_id": null,
+            "titles": {
+              "widget": {
+                "073d9217-6efe-4845-b2fb-5fb9dbbe2cc2": "Message Count",
+                "c0254ccc-0516-4b06-a95e-c3aa8819fc6c": "All Messages"
+              }
+            },
+            "widgets": [
+              {
+                "id": "c0254ccc-0516-4b06-a95e-c3aa8819fc6c",
+                "type": "messages",
+                "filter": null,
+                "timerange": null,
+                "query": null,
+                "streams": [],
+                "config": {
+                  "fields": [
+                    "timestamp",
+                    "kubernetes_pod_name",
+                    "kubernetes_namespace_name",
+                    "kubernetes_labels_app",
+                    "kubernetes_labels_tier",
+                    "kubernetes_host",
+                    "stream"
+                  ],
+                  "show_message_row": true,
+                  "decorators": [
+                    {
+                      "id": "608b553e64025e5d43ee33db",
+                      "type": "org.graylog2.decorators.LinkFieldDecorator",
+                      "config": {
+                        "link_field": "message"
+                      },
+                      "stream": null,
+                      "order": 0
+                    }
+                  ],
+                  "sort": [
+                    {
+                      "type": "pivot",
+                      "field": "timestamp",
+                      "direction": "Descending"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "073d9217-6efe-4845-b2fb-5fb9dbbe2cc2",
+                "type": "aggregation",
+                "filter": null,
+                "timerange": null,
+                "query": null,
+                "streams": [],
+                "config": {
+                  "visualization": "bar",
+                  "event_annotation": false,
+                  "row_pivots": [
+                    {
+                      "field": "timestamp",
+                      "type": "time",
+                      "config": {
+                        "interval": {
+                          "type": "auto",
+                          "scaling": null
+                        }
+                      }
+                    }
+                  ],
+                  "series": [
+                    {
+                      "config": {
+                        "name": null
+                      },
+                      "function": "count()"
+                    }
+                  ],
+                  "rollup": true,
+                  "column_pivots": [],
+                  "visualization_config": null,
+                  "formatting_settings": null,
+                  "sort": []
+                }
+              }
+            ],
+            "widget_mapping": {
+              "073d9217-6efe-4845-b2fb-5fb9dbbe2cc2": [
+                "b776187b-f9b4-42ae-831d-c2a44f179d35"
+              ],
+              "c0254ccc-0516-4b06-a95e-c3aa8819fc6c": [
+                "43729395-811a-49c7-a466-259aea6ec59d"
+              ]
+            },
+            "positions": {
+              "073d9217-6efe-4845-b2fb-5fb9dbbe2cc2": {
+                "col": 1,
+                "row": 9,
+                "height": 2,
+                "width": "Infinity"
+              },
+              "c0254ccc-0516-4b06-a95e-c3aa8819fc6c": {
+                "col": 1,
+                "row": 11,
+                "height": 6,
+                "width": "Infinity"
+              }
+            },
+            "formatting": {
+              "highlighting": []
+            },
+            "display_mode_settings": {
+              "positions": {}
+            }
+          }
+        },
+        "properties": [],
+        "owner": "admin",
+        "title": {
+          "@type": "string",
+          "@value": "Default - improves All messages table"
+        },
+        "type": "SEARCH",
+        "description": {
+          "@type": "string",
+          "@value": ""
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=4.0.6+40b7be5"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "stream",
+        "version": "1"
+      },
+      "id": "f170bb2c-37d8-4e5c-ba0e-81cd3eb2c550",
+      "data": {
+        "alarm_callbacks": [],
+        "outputs": [],
+        "remove_matches": {
+          "@type": "boolean",
+          "@value": true
+        },
+        "title": {
+          "@type": "string",
+          "@value": "Fluent Bit dummy"
+        },
+        "stream_rules": [
+          {
+            "type": {
+              "@type": "string",
+              "@value": "CONTAINS"
+            },
+            "field": {
+              "@type": "string",
+              "@value": "kubernetes_labels_app"
+            },
+            "value": {
+              "@type": "string",
+              "@value": "dummy"
+            },
+            "inverted": {
+              "@type": "boolean",
+              "@value": false
+            },
+            "description": {
+              "@type": "string",
+              "@value": ""
+            }
+          }
+        ],
+        "alert_conditions": [],
+        "matching_type": {
+          "@type": "string",
+          "@value": "OR"
+        },
+        "disabled": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Fluent Bit dummy"
+        },
+        "default_stream": {
+          "@type": "boolean",
+          "@value": false
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=4.0.6+40b7be5"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "dashboard",
+        "version": "2"
+      },
+      "id": "e49cd009-facf-490c-bf64-3bce8509f9e2",
+      "data": {
+        "summary": {
+          "@type": "string",
+          "@value": ""
+        },
+        "search": {
+          "queries": [
+            {
+              "id": "a87c40bd-ff78-46bb-ba57-481174815252",
+              "timerange": {
+                "type": "relative",
+                "range": 300
+              },
+              "query": {
+                "type": "elasticsearch",
+                "query_string": ""
+              },
+              "search_types": [
+                {
+                  "query": null,
+                  "name": null,
+                  "timerange": null,
+                  "offset": 0,
+                  "streams": [],
+                  "filter": null,
+                  "decorators": [],
+                  "type": "messages",
+                  "id": "9b58b4ce-e9b4-43e5-b53e-bfb0b9e697af",
+                  "limit": 150
+                },
+                {
+                  "query": {
+                    "type": "elasticsearch",
+                    "query_string": ""
+                  },
+                  "name": "chart",
+                  "timerange": {
+                    "type": "relative",
+                    "range": 2592000
+                  },
+                  "streams": [],
+                  "series": [
+                    {
+                      "type": "count",
+                      "id": "Message Count",
+                      "field": null
+                    }
+                  ],
+                  "filter": null,
+                  "rollup": true,
+                  "row_groups": [],
+                  "type": "pivot",
+                  "id": "5602d003-60be-4962-8e97-802c5af579ca",
+                  "column_groups": [],
+                  "sort": []
+                }
+              ]
+            }
+          ],
+          "parameters": [],
+          "requires": {},
+          "owner": "admin",
+          "created_at": "2021-04-30T00:41:12.868Z"
+        },
+        "created_at": "2021-04-13T09:37:51.552Z",
+        "requires": {},
+        "state": {
+          "a87c40bd-ff78-46bb-ba57-481174815252": {
+            "selected_fields": null,
+            "static_message_list_id": null,
+            "titles": {
+              "widget": {
+                "4cd7f283-d3ea-463e-8481-0a3be6c89a48": "Last messages"
+              }
+            },
+            "widgets": [
+              {
+                "id": "4cd7f283-d3ea-463e-8481-0a3be6c89a48",
+                "type": "messages",
+                "filter": null,
+                "timerange": null,
+                "query": null,
+                "streams": [],
+                "config": {
+                  "fields": [
+                    "timestamp",
+                    "source"
+                  ],
+                  "show_message_row": true,
+                  "decorators": [],
+                  "sort": [
+                    {
+                      "type": "pivot",
+                      "field": "timestamp",
+                      "direction": "Descending"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "7d0be05e-d26c-4ddc-a731-a6a9ffdd7edb",
+                "type": "aggregation",
+                "filter": null,
+                "timerange": {
+                  "type": "relative",
+                  "range": 2592000
+                },
+                "query": {
+                  "type": "elasticsearch",
+                  "query_string": ""
+                },
+                "streams": [],
+                "config": {
+                  "visualization": "numeric",
+                  "event_annotation": false,
+                  "row_pivots": [],
+                  "series": [
+                    {
+                      "config": {
+                        "name": "Message Count"
+                      },
+                      "function": "count()"
+                    }
+                  ],
+                  "rollup": true,
+                  "column_pivots": [],
+                  "visualization_config": null,
+                  "formatting_settings": null,
+                  "sort": []
+                }
+              }
+            ],
+            "widget_mapping": {
+              "4cd7f283-d3ea-463e-8481-0a3be6c89a48": [
+                "9b58b4ce-e9b4-43e5-b53e-bfb0b9e697af"
+              ],
+              "7d0be05e-d26c-4ddc-a731-a6a9ffdd7edb": [
+                "5602d003-60be-4962-8e97-802c5af579ca"
+              ]
+            },
+            "positions": {
+              "4cd7f283-d3ea-463e-8481-0a3be6c89a48": {
+                "col": 1,
+                "row": 3,
+                "height": 5,
+                "width": 6
+              },
+              "7d0be05e-d26c-4ddc-a731-a6a9ffdd7edb": {
+                "col": 1,
+                "row": 1,
+                "height": 2,
+                "width": 4
+              }
+            },
+            "formatting": {
+              "highlighting": []
+            },
+            "display_mode_settings": {
+              "positions": {}
+            }
+          }
+        },
+        "properties": [],
+        "owner": "admin",
+        "title": {
+          "@type": "string",
+          "@value": "Message count"
+        },
+        "type": "DASHBOARD",
+        "description": {
+          "@type": "string",
+          "@value": "Count all received messages since the beginning"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=4.0.6+40b7be5"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "input",
+        "version": "1"
+      },
+      "id": "f4adf9be-5868-4100-9adc-0a345e7fc7bd",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "GELF TCP"
+        },
+        "configuration": {
+          "tls_key_file": {
+            "@type": "string",
+            "@value": ""
+          },
+          "port": {
+            "@type": "integer",
+            "@value": {{ graylog_input_gelf_tcp_port }}
+          },
+          "tls_enable": {
+            "@type": "boolean",
+            "@value": false
+          },
+          "use_null_delimiter": {
+            "@type": "boolean",
+            "@value": true
+          },
+          "recv_buffer_size": {
+            "@type": "integer",
+            "@value": 1048576
+          },
+          "tcp_keepalive": {
+            "@type": "boolean",
+            "@value": false
+          },
+          "tls_client_auth_cert_file": {
+            "@type": "string",
+            "@value": ""
+          },
+          "bind_address": {
+            "@type": "string",
+            "@value": "{{ graylog_input_gelf_tcp_public_ip }}"
+          },
+          "tls_cert_file": {
+            "@type": "string",
+            "@value": ""
+          },
+          "max_message_size": {
+            "@type": "integer",
+            "@value": 2097152
+          },
+          "tls_client_auth": {
+            "@type": "string",
+            "@value": "disabled"
+          },
+          "decompress_size_limit": {
+            "@type": "integer",
+            "@value": 8388608
+          },
+          "number_worker_threads": {
+            "@type": "integer",
+            "@value": 2
+          },
+          "tls_key_password": {
+            "@type": "string",
+            "@value": ""
+          }
+        },
+        "static_fields": {},
+        "type": {
+          "@type": "string",
+          "@value": "org.graylog2.inputs.gelf.tcp.GELFTCPInput"
+        },
+        "global": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "extractors": []
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=4.0.6+40b7be5"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "search",
+        "version": "1"
+      },
+      "id": "604b45ad-7bf7-40b9-9419-2e1a96a6c510",
+      "data": {
+        "summary": {
+          "@type": "string",
+          "@value": ""
+        },
+        "search": {
+          "queries": [
+            {
+              "id": "6f567c52-0867-44d8-8aa5-b590035f0e4b",
+              "timerange": {
+                "type": "relative",
+                "range": 86400
+              },
+              "filter": {
+                "type": "or",
+                "filters": [
+                  {
+                    "type": "stream",
+                    "filters": null,
+                    "id": "43c1bf0e-b587-48eb-9687-e4c0ac6db779",
+                    "title": null
+                  }
+                ]
+              },
+              "query": {
+                "type": "elasticsearch",
+                "query_string": ""
+              },
+              "search_types": [
+                {
+                  "query": null,
+                  "name": null,
+                  "timerange": null,
+                  "offset": 0,
+                  "streams": [],
+                  "filter": null,
+                  "decorators": [],
+                  "type": "messages",
+                  "id": "c8c5c392-8580-4a17-969c-7951558f4c4d",
+                  "limit": 150
+                },
+                {
+                  "query": null,
+                  "name": "chart",
+                  "timerange": null,
+                  "streams": [],
+                  "series": [
+                    {
+                      "type": "count",
+                      "id": "count()",
+                      "field": null
+                    }
+                  ],
+                  "filter": null,
+                  "rollup": true,
+                  "row_groups": [
+                    {
+                      "type": "time",
+                      "field": "timestamp",
+                      "interval": {
+                        "type": "auto",
+                        "scaling": 1
+                      }
+                    }
+                  ],
+                  "type": "pivot",
+                  "id": "f6ca8ff4-e1c5-40c8-80b9-753e39e455c8",
+                  "column_groups": [],
+                  "sort": []
+                }
+              ]
+            }
+          ],
+          "parameters": [],
+          "requires": {},
+          "owner": "marcinz",
+          "created_at": "2021-06-15T08:02:22.534Z"
+        },
+        "created_at": "2021-06-07T12:53:30.095Z",
+        "requires": {},
+        "state": {
+          "6f567c52-0867-44d8-8aa5-b590035f0e4b": {
+            "selected_fields": null,
+            "static_message_list_id": null,
+            "titles": {
+              "widget": {
+                "3b9017ba-6de8-434b-9c41-c54d117ab306": "Message Count",
+                "a790655b-893b-43bb-8598-86e42b00ff18": "All Messages"
+              }
+            },
+            "widgets": [
+              {
+                "id": "a790655b-893b-43bb-8598-86e42b00ff18",
+                "type": "messages",
+                "filter": null,
+                "timerange": null,
+                "query": null,
+                "streams": [],
+                "config": {
+                  "fields": [
+                    "time",
+                    "logging_level",
+                    "logger_name",
+                    "thread_name",
+                    "kubernetes_labels_app",
+                    "kubernetes_pod_name",
+                    "kubernetes_host"
+                  ],
+                  "show_message_row": true,
+                  "decorators": [],
+                  "sort": [
+                    {
+                      "type": "pivot",
+                      "field": "time",
+                      "direction": "Descending"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "3b9017ba-6de8-434b-9c41-c54d117ab306",
+                "type": "aggregation",
+                "filter": null,
+                "timerange": null,
+                "query": null,
+                "streams": [],
+                "config": {
+                  "visualization": "bar",
+                  "event_annotation": false,
+                  "row_pivots": [
+                    {
+                      "field": "timestamp",
+                      "type": "time",
+                      "config": {
+                        "interval": {
+                          "type": "auto",
+                          "scaling": null
+                        }
+                      }
+                    }
+                  ],
+                  "series": [
+                    {
+                      "config": {
+                        "name": null
+                      },
+                      "function": "count()"
+                    }
+                  ],
+                  "rollup": true,
+                  "column_pivots": [],
+                  "visualization_config": null,
+                  "formatting_settings": null,
+                  "sort": []
+                }
+              }
+            ],
+            "widget_mapping": {
+              "a790655b-893b-43bb-8598-86e42b00ff18": [
+                "c8c5c392-8580-4a17-969c-7951558f4c4d"
+              ],
+              "3b9017ba-6de8-434b-9c41-c54d117ab306": [
+                "f6ca8ff4-e1c5-40c8-80b9-753e39e455c8"
+              ]
+            },
+            "positions": {
+              "a790655b-893b-43bb-8598-86e42b00ff18": {
+                "col": 1,
+                "row": 40,
+                "height": 6,
+                "width": "Infinity"
+              },
+              "3b9017ba-6de8-434b-9c41-c54d117ab306": {
+                "col": 1,
+                "row": 38,
+                "height": 2,
+                "width": "Infinity"
+              }
+            },
+            "formatting": {
+              "highlighting": []
+            },
+            "display_mode_settings": {
+              "positions": {}
+            }
+          }
+        },
+        "properties": [],
+        "owner": "marcinz",
+        "title": {
+          "@type": "string",
+          "@value": "Backend - improved columns 2b"
+        },
+        "type": "SEARCH",
+        "description": {
+          "@type": "string",
+          "@value": ""
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=4.0.6+40b7be5"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "stream",
+        "version": "1"
+      },
+      "id": "d58e7ea3-eed8-436d-b371-b90de7e1223e",
+      "data": {
+        "alarm_callbacks": [],
+        "outputs": [],
+        "remove_matches": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "title": {
+          "@type": "string",
+          "@value": "Fluent Bit backend-testing"
+        },
+        "stream_rules": [
+          {
+            "type": {
+              "@type": "string",
+              "@value": "EXACT"
+            },
+            "field": {
+              "@type": "string",
+              "@value": "kubernetes_labels_tier"
+            },
+            "value": {
+              "@type": "string",
+              "@value": "backend-testing"
+            },
+            "inverted": {
+              "@type": "boolean",
+              "@value": false
+            },
+            "description": {
+              "@type": "string",
+              "@value": ""
+            }
+          }
+        ],
+        "alert_conditions": [],
+        "matching_type": {
+          "@type": "string",
+          "@value": "OR"
+        },
+        "disabled": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Fluent Bit backend-testing"
+        },
+        "default_stream": {
+          "@type": "boolean",
+          "@value": false
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=4.0.6+40b7be5"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "dashboard",
+        "version": "2"
+      },
+      "id": "e1c3300e-4e13-4ddb-a0ad-d03eb3256329",
+      "data": {
+        "summary": {
+          "@type": "string",
+          "@value": "This is a list of all sources that sent in messages to Graylog."
+        },
+        "search": {
+          "queries": [
+            {
+              "id": "a1647eb6-a064-4fe6-b459-1e4267d3f659",
+              "timerange": {
+                "type": "relative",
+                "range": 300
+              },
+              "query": {
+                "type": "elasticsearch",
+                "query_string": ""
+              },
+              "search_types": [
+                {
+                  "query": {
+                    "type": "elasticsearch",
+                    "query_string": ""
+                  },
+                  "name": "chart",
+                  "timerange": {
+                    "type": "relative",
+                    "range": 3600
+                  },
+                  "streams": [],
+                  "series": [
+                    {
+                      "type": "count",
+                      "id": "Message count",
+                      "field": null
+                    }
+                  ],
+                  "filter": null,
+                  "rollup": true,
+                  "row_groups": [
+                    {
+                      "type": "time",
+                      "field": "timestamp",
+                      "interval": {
+                        "type": "auto",
+                        "scaling": 1
+                      }
+                    }
+                  ],
+                  "type": "pivot",
+                  "id": "c7b0c746-f49b-4390-b140-e973826365bb",
+                  "column_groups": [],
+                  "sort": []
+                },
+                {
+                  "query": {
+                    "type": "elasticsearch",
+                    "query_string": ""
+                  },
+                  "name": "chart",
+                  "timerange": {
+                    "type": "relative",
+                    "range": 3600
+                  },
+                  "streams": [],
+                  "series": [
+                    {
+                      "type": "count",
+                      "id": "Message count",
+                      "field": null
+                    }
+                  ],
+                  "filter": null,
+                  "rollup": true,
+                  "row_groups": [
+                    {
+                      "type": "values",
+                      "field": "kubernetes_pod_name",
+                      "limit": 15
+                    }
+                  ],
+                  "type": "pivot",
+                  "id": "9605a04b-1226-4881-9ca0-84b673c00f28",
+                  "column_groups": [],
+                  "sort": [
+                    {
+                      "type": "series",
+                      "field": "count()",
+                      "direction": "Descending"
+                    }
+                  ]
+                },
+                {
+                  "query": {
+                    "type": "elasticsearch",
+                    "query_string": ""
+                  },
+                  "name": "chart",
+                  "timerange": {
+                    "type": "relative",
+                    "range": 900
+                  },
+                  "streams": [],
+                  "series": [
+                    {
+                      "type": "count",
+                      "id": "Message count",
+                      "field": null
+                    }
+                  ],
+                  "filter": null,
+                  "rollup": true,
+                  "row_groups": [
+                    {
+                      "type": "values",
+                      "field": "kubernetes_pod_name",
+                      "limit": 15
+                    }
+                  ],
+                  "type": "pivot",
+                  "id": "3face1e1-026c-4f9a-8f1a-7949b9477ed6",
+                  "column_groups": [],
+                  "sort": [
+                    {
+                      "type": "series",
+                      "field": "count()",
+                      "direction": "Descending"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "parameters": [],
+          "requires": {},
+          "owner": "admin",
+          "created_at": "2021-04-30T00:46:08.691Z"
+        },
+        "created_at": "2019-11-22T10:54:50.950Z",
+        "requires": {},
+        "state": {
+          "a1647eb6-a064-4fe6-b459-1e4267d3f659": {
+            "selected_fields": null,
+            "static_message_list_id": null,
+            "titles": {
+              "tab": {
+                "title": "Sources Overview"
+              },
+              "widget": {
+                "6c127c5d-be75-4157-b43f-ac0194ac0586": "Messages per pod - last 1 hour",
+                "92d63811-e4dd-47db-bd3b-db03c8a9bd53": "Messages per Source - last 15 minutes",
+                "00637e63-d728-4b3e-932b-7c8696b4855d": "Messages over time - last 1 hour"
+              }
+            },
+            "widgets": [
+              {
+                "id": "92d63811-e4dd-47db-bd3b-db03c8a9bd53",
+                "type": "aggregation",
+                "filter": null,
+                "timerange": {
+                  "type": "relative",
+                  "range": 900
+                },
+                "query": {
+                  "type": "elasticsearch",
+                  "query_string": ""
+                },
+                "streams": [],
+                "config": {
+                  "visualization": "pie",
+                  "event_annotation": false,
+                  "row_pivots": [
+                    {
+                      "field": "kubernetes_pod_name",
+                      "type": "values",
+                      "config": {
+                        "limit": 15
+                      }
+                    }
+                  ],
+                  "series": [
+                    {
+                      "config": {
+                        "name": "Message count"
+                      },
+                      "function": "count()"
+                    }
+                  ],
+                  "rollup": true,
+                  "column_pivots": [],
+                  "visualization_config": null,
+                  "formatting_settings": null,
+                  "sort": [
+                    {
+                      "type": "series",
+                      "field": "count()",
+                      "direction": "Descending"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "00637e63-d728-4b3e-932b-7c8696b4855d",
+                "type": "aggregation",
+                "filter": null,
+                "timerange": {
+                  "type": "relative",
+                  "range": 3600
+                },
+                "query": {
+                  "type": "elasticsearch",
+                  "query_string": ""
+                },
+                "streams": [],
+                "config": {
+                  "visualization": "line",
+                  "event_annotation": false,
+                  "row_pivots": [
+                    {
+                      "field": "timestamp",
+                      "type": "time",
+                      "config": {
+                        "interval": {
+                          "type": "auto",
+                          "scaling": null
+                        }
+                      }
+                    }
+                  ],
+                  "series": [
+                    {
+                      "config": {
+                        "name": "Message count"
+                      },
+                      "function": "count()"
+                    }
+                  ],
+                  "rollup": true,
+                  "column_pivots": [],
+                  "visualization_config": null,
+                  "formatting_settings": null,
+                  "sort": []
+                }
+              },
+              {
+                "id": "6c127c5d-be75-4157-b43f-ac0194ac0586",
+                "type": "aggregation",
+                "filter": null,
+                "timerange": {
+                  "type": "relative",
+                  "range": 3600
+                },
+                "query": {
+                  "type": "elasticsearch",
+                  "query_string": ""
+                },
+                "streams": [],
+                "config": {
+                  "visualization": "table",
+                  "event_annotation": false,
+                  "row_pivots": [
+                    {
+                      "field": "kubernetes_pod_name",
+                      "type": "values",
+                      "config": {
+                        "limit": 15
+                      }
+                    }
+                  ],
+                  "series": [
+                    {
+                      "config": {
+                        "name": "Message count"
+                      },
+                      "function": "count()"
+                    }
+                  ],
+                  "rollup": true,
+                  "column_pivots": [],
+                  "visualization_config": null,
+                  "formatting_settings": null,
+                  "sort": [
+                    {
+                      "type": "series",
+                      "field": "count()",
+                      "direction": "Descending"
+                    }
+                  ]
+                }
+              }
+            ],
+            "widget_mapping": {
+              "00637e63-d728-4b3e-932b-7c8696b4855d": [
+                "c7b0c746-f49b-4390-b140-e973826365bb"
+              ],
+              "92d63811-e4dd-47db-bd3b-db03c8a9bd53": [
+                "3face1e1-026c-4f9a-8f1a-7949b9477ed6"
+              ],
+              "6c127c5d-be75-4157-b43f-ac0194ac0586": [
+                "9605a04b-1226-4881-9ca0-84b673c00f28"
+              ]
+            },
+            "positions": {
+              "00637e63-d728-4b3e-932b-7c8696b4855d": {
+                "col": 1,
+                "row": 7,
+                "height": 4,
+                "width": "Infinity"
+              },
+              "92d63811-e4dd-47db-bd3b-db03c8a9bd53": {
+                "col": 6,
+                "row": 11,
+                "height": 5,
+                "width": 7
+              },
+              "6c127c5d-be75-4157-b43f-ac0194ac0586": {
+                "col": 1,
+                "row": 11,
+                "height": 5,
+                "width": 5
+              }
+            },
+            "formatting": {
+              "highlighting": []
+            },
+            "display_mode_settings": {
+              "positions": {}
+            }
+          }
+        },
+        "properties": [],
+        "owner": "admin",
+        "title": {
+          "@type": "string",
+          "@value": "Sources"
+        },
+        "type": "DASHBOARD",
+        "description": {
+          "@type": "string",
+          "@value": "This is a list of all sources that sent in messages to Graylog. You can narrow the timerange by zooming in on the message histogram, or you can increase the time range by specifying a broader one in the controls at the top. You can also specify filters to limit the results you are seeing. You can also add additional widgets to this dashboard, or adapt the appearance of existing widgets to suit your needs."
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=4.0.6+40b7be5"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "search",
+        "version": "1"
+      },
+      "id": "725ffcef-70e3-40ab-9125-601d027568e8",
+      "data": {
+        "summary": {
+          "@type": "string",
+          "@value": ""
+        },
+        "search": {
+          "queries": [
+            {
+              "id": "6f567c52-0867-44d8-8aa5-b590035f0e4b",
+              "timerange": {
+                "type": "relative",
+                "range": 300
+              },
+              "filter": {
+                "type": "or",
+                "filters": [
+                  {
+                    "type": "stream",
+                    "filters": null,
+                    "id": "43c1bf0e-b587-48eb-9687-e4c0ac6db779",
+                    "title": null
+                  }
+                ]
+              },
+              "query": {
+                "type": "elasticsearch",
+                "query_string": ""
+              },
+              "search_types": [
+                {
+                  "query": null,
+                  "name": "chart",
+                  "timerange": null,
+                  "streams": [],
+                  "series": [
+                    {
+                      "type": "count",
+                      "id": "count()",
+                      "field": null
+                    }
+                  ],
+                  "filter": null,
+                  "rollup": true,
+                  "row_groups": [
+                    {
+                      "type": "time",
+                      "field": "timestamp",
+                      "interval": {
+                        "type": "auto",
+                        "scaling": 1
+                      }
+                    }
+                  ],
+                  "type": "pivot",
+                  "id": "65b3833e-60d7-4685-8e09-e5db94592fc2",
+                  "column_groups": [],
+                  "sort": []
+                },
+                {
+                  "query": null,
+                  "name": null,
+                  "timerange": null,
+                  "offset": 0,
+                  "streams": [],
+                  "filter": null,
+                  "decorators": [],
+                  "type": "messages",
+                  "id": "753e8e91-aff5-4b03-9eb6-9bd6a2d52dc7",
+                  "limit": 150
+                }
+              ]
+            }
+          ],
+          "parameters": [],
+          "requires": {},
+          "owner": "admin",
+          "created_at": "2021-06-07T12:53:36.804Z"
+        },
+        "created_at": "2021-06-07T12:53:30.095Z",
+        "requires": {},
+        "state": {
+          "6f567c52-0867-44d8-8aa5-b590035f0e4b": {
+            "selected_fields": null,
+            "static_message_list_id": null,
+            "titles": {
+              "widget": {
+                "3b9017ba-6de8-434b-9c41-c54d117ab306": "Message Count",
+                "a790655b-893b-43bb-8598-86e42b00ff18": "All Messages"
+              }
+            },
+            "widgets": [
+              {
+                "id": "a790655b-893b-43bb-8598-86e42b00ff18",
+                "type": "messages",
+                "filter": null,
+                "timerange": null,
+                "query": null,
+                "streams": [],
+                "config": {
+                  "fields": [
+                    "timestamp",
+                    "logging_level",
+                    "logger_name",
+                    "kubernetes_labels_app",
+                    "kubernetes_namespace_name",
+                    "kubernetes_labels_tier",
+                    "dummyTracingId",
+                    "kubernetes_host"
+                  ],
+                  "show_message_row": true,
+                  "decorators": [],
+                  "sort": [
+                    {
+                      "type": "pivot",
+                      "field": "timestamp",
+                      "direction": "Descending"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "3b9017ba-6de8-434b-9c41-c54d117ab306",
+                "type": "aggregation",
+                "filter": null,
+                "timerange": null,
+                "query": null,
+                "streams": [],
+                "config": {
+                  "visualization": "bar",
+                  "event_annotation": false,
+                  "row_pivots": [
+                    {
+                      "field": "timestamp",
+                      "type": "time",
+                      "config": {
+                        "interval": {
+                          "type": "auto",
+                          "scaling": null
+                        }
+                      }
+                    }
+                  ],
+                  "series": [
+                    {
+                      "config": {
+                        "name": null
+                      },
+                      "function": "count()"
+                    }
+                  ],
+                  "rollup": true,
+                  "column_pivots": [],
+                  "visualization_config": null,
+                  "formatting_settings": null,
+                  "sort": []
+                }
+              }
+            ],
+            "widget_mapping": {
+              "3b9017ba-6de8-434b-9c41-c54d117ab306": [
+                "65b3833e-60d7-4685-8e09-e5db94592fc2"
+              ],
+              "a790655b-893b-43bb-8598-86e42b00ff18": [
+                "753e8e91-aff5-4b03-9eb6-9bd6a2d52dc7"
+              ]
+            },
+            "positions": {
+              "3b9017ba-6de8-434b-9c41-c54d117ab306": {
+                "col": 1,
+                "row": 9,
+                "height": 2,
+                "width": "Infinity"
+              },
+              "a790655b-893b-43bb-8598-86e42b00ff18": {
+                "col": 1,
+                "row": 11,
+                "height": 6,
+                "width": "Infinity"
+              }
+            },
+            "formatting": null,
+            "display_mode_settings": {
+              "positions": {}
+            }
+          }
+        },
+        "properties": [],
+        "owner": "admin",
+        "title": {
+          "@type": "string",
+          "@value": "Backend - improved columns 2"
+        },
+        "type": "SEARCH",
+        "description": {
+          "@type": "string",
+          "@value": ""
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=4.0.6+40b7be5"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "stream",
+        "version": "1"
+      },
+      "id": "f93c2523-b27d-4bce-b7b1-4328fe49e319",
+      "data": {
+        "alarm_callbacks": [],
+        "outputs": [],
+        "remove_matches": {
+          "@type": "boolean",
+          "@value": true
+        },
+        "title": {
+          "@type": "string",
+          "@value": "Appender backend"
+        },
+        "stream_rules": [
+          {
+            "type": {
+              "@type": "string",
+              "@value": "EXACT"
+            },
+            "field": {
+              "@type": "string",
+              "@value": "facility"
+            },
+            "value": {
+              "@type": "string",
+              "@value": "logstash-gelf"
+            },
+            "inverted": {
+              "@type": "boolean",
+              "@value": false
+            },
+            "description": {
+              "@type": "string",
+              "@value": ""
+            }
+          }
+        ],
+        "alert_conditions": [],
+        "matching_type": {
+          "@type": "string",
+          "@value": "OR"
+        },
+        "disabled": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Appender backend"
+        },
+        "default_stream": {
+          "@type": "boolean",
+          "@value": false
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=4.0.6+40b7be5"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "dashboard",
+        "version": "2"
+      },
+      "id": "8b4ef09e-2ebc-406a-9b6e-e6245ccc008d",
+      "data": {
+        "summary": {
+          "@type": "string",
+          "@value": "This is a list of backend source messages  sent to Graylog."
+        },
+        "search": {
+          "queries": [
+            {
+              "id": "a1647eb6-a064-4fe6-b459-1e4267d3f659",
+              "timerange": {
+                "type": "relative",
+                "range": 300
+              },
+              "query": {
+                "type": "elasticsearch",
+                "query_string": ""
+              },
+              "search_types": [
+                {
+                  "query": {
+                    "type": "elasticsearch",
+                    "query_string": ""
+                  },
+                  "name": "chart",
+                  "timerange": {
+                    "type": "relative",
+                    "range": 604800
+                  },
+                  "streams": [
+                    "43c1bf0e-b587-48eb-9687-e4c0ac6db779"
+                  ],
+                  "series": [
+                    {
+                      "type": "count",
+                      "id": "Message count",
+                      "field": null
+                    }
+                  ],
+                  "filter": null,
+                  "rollup": true,
+                  "row_groups": [
+                    {
+                      "type": "values",
+                      "field": "kubernetes_labels_app",
+                      "limit": 15
+                    }
+                  ],
+                  "type": "pivot",
+                  "id": "a38edb2a-f7d8-4014-88bb-80211eb176a4",
+                  "column_groups": [],
+                  "sort": [
+                    {
+                      "type": "series",
+                      "field": "count()",
+                      "direction": "Descending"
+                    }
+                  ]
+                },
+                {
+                  "query": {
+                    "type": "elasticsearch",
+                    "query_string": ""
+                  },
+                  "name": "chart",
+                  "timerange": {
+                    "type": "relative",
+                    "range": 604800
+                  },
+                  "streams": [
+                    "43c1bf0e-b587-48eb-9687-e4c0ac6db779"
+                  ],
+                  "series": [
+                    {
+                      "type": "count",
+                      "id": "Message count",
+                      "field": null
+                    }
+                  ],
+                  "filter": null,
+                  "rollup": true,
+                  "row_groups": [
+                    {
+                      "type": "values",
+                      "field": "kubernetes_labels_app",
+                      "limit": 15
+                    }
+                  ],
+                  "type": "pivot",
+                  "id": "3c16d661-8f1d-40b7-9bb7-636febc78ac6",
+                  "column_groups": [],
+                  "sort": [
+                    {
+                      "type": "series",
+                      "field": "count()",
+                      "direction": "Descending"
+                    }
+                  ]
+                },
+                {
+                  "query": {
+                    "type": "elasticsearch",
+                    "query_string": ""
+                  },
+                  "name": "chart",
+                  "timerange": {
+                    "type": "relative",
+                    "range": 604800
+                  },
+                  "streams": [
+                    "43c1bf0e-b587-48eb-9687-e4c0ac6db779"
+                  ],
+                  "series": [
+                    {
+                      "type": "count",
+                      "id": "Message count",
+                      "field": null
+                    }
+                  ],
+                  "filter": null,
+                  "rollup": true,
+                  "row_groups": [
+                    {
+                      "type": "time",
+                      "field": "timestamp",
+                      "interval": {
+                        "type": "auto",
+                        "scaling": 1
+                      }
+                    }
+                  ],
+                  "type": "pivot",
+                  "id": "efbc8aec-6920-40e9-aa8d-a2f1d9a1e5b2",
+                  "column_groups": [],
+                  "sort": []
+                }
+              ]
+            }
+          ],
+          "parameters": [],
+          "requires": {},
+          "owner": "marcinz",
+          "created_at": "2021-06-14T15:08:21.539Z"
+        },
+        "created_at": "2019-11-22T10:54:50.950Z",
+        "requires": {},
+        "state": {
+          "a1647eb6-a064-4fe6-b459-1e4267d3f659": {
+            "selected_fields": null,
+            "static_message_list_id": null,
+            "titles": {
+              "tab": {
+                "title": "Sources Overview"
+              },
+              "widget": {
+                "6c127c5d-be75-4157-b43f-ac0194ac0586": "Messages per pod - last 7 days",
+                "92d63811-e4dd-47db-bd3b-db03c8a9bd53": "Messages per Source - last 7 days",
+                "00637e63-d728-4b3e-932b-7c8696b4855d": "Messages over time - last 7 days"
+              }
+            },
+            "widgets": [
+              {
+                "id": "6c127c5d-be75-4157-b43f-ac0194ac0586",
+                "type": "aggregation",
+                "filter": null,
+                "timerange": {
+                  "type": "relative",
+                  "range": 604800
+                },
+                "query": {
+                  "type": "elasticsearch",
+                  "query_string": ""
+                },
+                "streams": [
+                  "43c1bf0e-b587-48eb-9687-e4c0ac6db779"
+                ],
+                "config": {
+                  "visualization": "table",
+                  "event_annotation": false,
+                  "row_pivots": [
+                    {
+                      "field": "kubernetes_labels_app",
+                      "type": "values",
+                      "config": {
+                        "limit": 15
+                      }
+                    }
+                  ],
+                  "series": [
+                    {
+                      "config": {
+                        "name": "Message count"
+                      },
+                      "function": "count()"
+                    }
+                  ],
+                  "rollup": true,
+                  "column_pivots": [],
+                  "visualization_config": null,
+                  "formatting_settings": null,
+                  "sort": [
+                    {
+                      "type": "series",
+                      "field": "count()",
+                      "direction": "Descending"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "92d63811-e4dd-47db-bd3b-db03c8a9bd53",
+                "type": "aggregation",
+                "filter": null,
+                "timerange": {
+                  "type": "relative",
+                  "range": 604800
+                },
+                "query": {
+                  "type": "elasticsearch",
+                  "query_string": ""
+                },
+                "streams": [
+                  "43c1bf0e-b587-48eb-9687-e4c0ac6db779"
+                ],
+                "config": {
+                  "visualization": "pie",
+                  "event_annotation": false,
+                  "row_pivots": [
+                    {
+                      "field": "kubernetes_labels_app",
+                      "type": "values",
+                      "config": {
+                        "limit": 15
+                      }
+                    }
+                  ],
+                  "series": [
+                    {
+                      "config": {
+                        "name": "Message count"
+                      },
+                      "function": "count()"
+                    }
+                  ],
+                  "rollup": true,
+                  "column_pivots": [],
+                  "visualization_config": null,
+                  "formatting_settings": null,
+                  "sort": [
+                    {
+                      "type": "series",
+                      "field": "count()",
+                      "direction": "Descending"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "00637e63-d728-4b3e-932b-7c8696b4855d",
+                "type": "aggregation",
+                "filter": null,
+                "timerange": {
+                  "type": "relative",
+                  "range": 604800
+                },
+                "query": {
+                  "type": "elasticsearch",
+                  "query_string": ""
+                },
+                "streams": [
+                  "43c1bf0e-b587-48eb-9687-e4c0ac6db779"
+                ],
+                "config": {
+                  "visualization": "line",
+                  "event_annotation": false,
+                  "row_pivots": [
+                    {
+                      "field": "timestamp",
+                      "type": "time",
+                      "config": {
+                        "interval": {
+                          "type": "auto",
+                          "scaling": null
+                        }
+                      }
+                    }
+                  ],
+                  "series": [
+                    {
+                      "config": {
+                        "name": "Message count"
+                      },
+                      "function": "count()"
+                    }
+                  ],
+                  "rollup": true,
+                  "column_pivots": [],
+                  "visualization_config": null,
+                  "formatting_settings": null,
+                  "sort": []
+                }
+              }
+            ],
+            "widget_mapping": {
+              "00637e63-d728-4b3e-932b-7c8696b4855d": [
+                "efbc8aec-6920-40e9-aa8d-a2f1d9a1e5b2"
+              ],
+              "6c127c5d-be75-4157-b43f-ac0194ac0586": [
+                "3c16d661-8f1d-40b7-9bb7-636febc78ac6"
+              ],
+              "92d63811-e4dd-47db-bd3b-db03c8a9bd53": [
+                "a38edb2a-f7d8-4014-88bb-80211eb176a4"
+              ]
+            },
+            "positions": {
+              "00637e63-d728-4b3e-932b-7c8696b4855d": {
+                "col": 1,
+                "row": 1,
+                "height": 3,
+                "width": "Infinity"
+              },
+              "6c127c5d-be75-4157-b43f-ac0194ac0586": {
+                "col": 1,
+                "row": 4,
+                "height": 5,
+                "width": 5
+              },
+              "92d63811-e4dd-47db-bd3b-db03c8a9bd53": {
+                "col": 6,
+                "row": 4,
+                "height": 5,
+                "width": 7
+              }
+            },
+            "formatting": {
+              "highlighting": []
+            },
+            "display_mode_settings": {
+              "positions": {}
+            }
+          }
+        },
+        "properties": [],
+        "owner": "marcinz",
+        "title": {
+          "@type": "string",
+          "@value": "µservice logging stats"
+        },
+        "type": "DASHBOARD",
+        "description": {
+          "@type": "string",
+          "@value": ""
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=4.0.6+40b7be5"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "stream",
+        "version": "1"
+      },
+      "id": "43c1bf0e-b587-48eb-9687-e4c0ac6db779",
+      "data": {
+        "alarm_callbacks": [],
+        "outputs": [],
+        "remove_matches": {
+          "@type": "boolean",
+          "@value": true
+        },
+        "title": {
+          "@type": "string",
+          "@value": "Fluent Bit backend"
+        },
+        "stream_rules": [
+          {
+            "type": {
+              "@type": "string",
+              "@value": "EXACT"
+            },
+            "field": {
+              "@type": "string",
+              "@value": "kubernetes_labels_tier"
+            },
+            "value": {
+              "@type": "string",
+              "@value": "backend"
+            },
+            "inverted": {
+              "@type": "boolean",
+              "@value": false
+            },
+            "description": {
+              "@type": "string",
+              "@value": ""
+            }
+          }
+        ],
+        "alert_conditions": [],
+        "matching_type": {
+          "@type": "string",
+          "@value": "OR"
+        },
+        "disabled": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Fluent Bit backend"
+        },
+        "default_stream": {
+          "@type": "boolean",
+          "@value": false
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=4.0.6+40b7be5"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline",
+        "version": "1"
+      },
+      "id": "a78477a9-6084-4ba3-96d8-8c31355894d8",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "fluentbit-backend"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Extract backend logs from Fluent Bit stream"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "pipeline \"fluentbit-backend\"\nstage 0 match either\nend"
+        },
+        "connected_streams": [
+          {
+            "@type": "string",
+            "@value": "43c1bf0e-b587-48eb-9687-e4c0ac6db779"
+          }
+        ]
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=4.0.6+40b7be5"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "dashboard",
+        "version": "2"
+      },
+      "id": "a20a8e07-9270-4654-bc1a-f8410568d37b",
+      "data": {
+        "summary": {
+          "@type": "string",
+          "@value": ""
+        },
+        "search": {
+          "queries": [
+            {
+              "id": "f965a552-bb11-4ce6-b8cb-690ec8b89a9b",
+              "timerange": {
+                "type": "relative",
+                "range": 300
+              },
+              "query": {
+                "type": "elasticsearch",
+                "query_string": ""
+              },
+              "search_types": [
+                {
+                  "query": null,
+                  "name": "chart",
+                  "timerange": null,
+                  "streams": [],
+                  "series": [
+                    {
+                      "type": "count",
+                      "id": "count()",
+                      "field": null
+                    }
+                  ],
+                  "filter": null,
+                  "rollup": true,
+                  "row_groups": [
+                    {
+                      "type": "time",
+                      "field": "timestamp",
+                      "interval": {
+                        "type": "auto",
+                        "scaling": 1
+                      }
+                    }
+                  ],
+                  "type": "pivot",
+                  "id": "b9a96f94-f905-45ab-b64e-c9d1d891c28b",
+                  "column_groups": [],
+                  "sort": []
+                },
+                {
+                  "query": null,
+                  "name": null,
+                  "timerange": null,
+                  "offset": 0,
+                  "streams": [],
+                  "filter": null,
+                  "decorators": [
+                    {
+                      "id": "608b55e364025e5d43ee33ed",
+                      "type": "org.graylog2.decorators.LinkFieldDecorator",
+                      "config": {
+                        "link_field": "message"
+                      },
+                      "stream": null,
+                      "order": 0
+                    }
+                  ],
+                  "type": "messages",
+                  "id": "1bd568a6-254d-4368-bd0c-c9efe6ce17c5",
+                  "limit": 150
+                }
+              ]
+            }
+          ],
+          "parameters": [],
+          "requires": {},
+          "owner": "admin",
+          "created_at": "2021-04-30T00:57:07.096Z"
+        },
+        "created_at": "2021-04-30T00:55:40.985Z",
+        "requires": {},
+        "state": {
+          "f965a552-bb11-4ce6-b8cb-690ec8b89a9b": {
+            "selected_fields": null,
+            "static_message_list_id": null,
+            "titles": {
+              "widget": {
+                "6ad334ee-5379-43b6-af9b-95ad94a806c5": "Message Count",
+                "7b0ce8d2-07c8-48f6-b6b6-790d800ed7e7": "All Messages"
+              },
+              "tab": {
+                "title": "Count"
+              }
+            },
+            "widgets": [
+              {
+                "id": "7b0ce8d2-07c8-48f6-b6b6-790d800ed7e7",
+                "type": "messages",
+                "filter": null,
+                "timerange": {
+                  "type": "relative",
+                  "range": 300
+                },
+                "query": {
+                  "type": "elasticsearch",
+                  "query_string": ""
+                },
+                "streams": [],
+                "config": {
+                  "fields": [
+                    "timestamp",
+                    "kubernetes_pod_name",
+                    "kubernetes_namespace_name",
+                    "kubernetes_labels_app",
+                    "kubernetes_labels_tier",
+                    "kubernetes_host",
+                    "stream"
+                  ],
+                  "show_message_row": true,
+                  "decorators": [
+                    {
+                      "id": "608b55e364025e5d43ee33ed",
+                      "type": "org.graylog2.decorators.LinkFieldDecorator",
+                      "config": {
+                        "link_field": "message"
+                      },
+                      "stream": null,
+                      "order": 0
+                    }
+                  ],
+                  "sort": [
+                    {
+                      "type": "pivot",
+                      "field": "timestamp",
+                      "direction": "Descending"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "6ad334ee-5379-43b6-af9b-95ad94a806c5",
+                "type": "aggregation",
+                "filter": null,
+                "timerange": {
+                  "type": "relative",
+                  "range": 300
+                },
+                "query": {
+                  "type": "elasticsearch",
+                  "query_string": ""
+                },
+                "streams": [],
+                "config": {
+                  "visualization": "bar",
+                  "event_annotation": false,
+                  "row_pivots": [
+                    {
+                      "field": "timestamp",
+                      "type": "time",
+                      "config": {
+                        "interval": {
+                          "type": "auto",
+                          "scaling": null
+                        }
+                      }
+                    }
+                  ],
+                  "series": [
+                    {
+                      "config": {
+                        "name": null
+                      },
+                      "function": "count()"
+                    }
+                  ],
+                  "rollup": true,
+                  "column_pivots": [],
+                  "visualization_config": null,
+                  "formatting_settings": null,
+                  "sort": []
+                }
+              }
+            ],
+            "widget_mapping": {
+              "6ad334ee-5379-43b6-af9b-95ad94a806c5": [
+                "b9a96f94-f905-45ab-b64e-c9d1d891c28b"
+              ],
+              "7b0ce8d2-07c8-48f6-b6b6-790d800ed7e7": [
+                "1bd568a6-254d-4368-bd0c-c9efe6ce17c5"
+              ]
+            },
+            "positions": {
+              "6ad334ee-5379-43b6-af9b-95ad94a806c5": {
+                "col": 1,
+                "row": 9,
+                "height": 2,
+                "width": "Infinity"
+              },
+              "7b0ce8d2-07c8-48f6-b6b6-790d800ed7e7": {
+                "col": 1,
+                "row": 11,
+                "height": 6,
+                "width": "Infinity"
+              }
+            },
+            "formatting": {
+              "highlighting": []
+            },
+            "display_mode_settings": {
+              "positions": {}
+            }
+          }
+        },
+        "properties": [],
+        "owner": "admin",
+        "title": {
+          "@type": "string",
+          "@value": "Improved Search View"
+        },
+        "type": "DASHBOARD",
+        "description": {
+          "@type": "string",
+          "@value": "This Dashboard have improved \"All messages\" aggregator which reflect some useful kubernetes metadata"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=4.0.6+40b7be5"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "input",
+        "version": "1"
+      },
+      "id": "adf9505a-f1bf-4116-abea-beed1b8c8230",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "RAW TCP"
+        },
+        "configuration": {
+          "tls_key_file": {
+            "@type": "string",
+            "@value": ""
+          },
+          "port": {
+            "@type": "integer",
+            "@value": {{ graylog_input_raw_tcp_port }}
+          },
+          "tls_enable": {
+            "@type": "boolean",
+            "@value": false
+          },
+          "use_null_delimiter": {
+            "@type": "boolean",
+            "@value": false
+          },
+          "recv_buffer_size": {
+            "@type": "integer",
+            "@value": 1048576
+          },
+          "tcp_keepalive": {
+            "@type": "boolean",
+            "@value": false
+          },
+          "tls_client_auth_cert_file": {
+            "@type": "string",
+            "@value": ""
+          },
+          "bind_address": {
+            "@type": "string",
+            "@value": "{{ graylog_input_raw_tcp_public_ip }}"
+          },
+          "tls_cert_file": {
+            "@type": "string",
+            "@value": ""
+          },
+          "max_message_size": {
+            "@type": "integer",
+            "@value": 2097152
+          },
+          "tls_client_auth": {
+            "@type": "string",
+            "@value": "disabled"
+          },
+          "number_worker_threads": {
+            "@type": "integer",
+            "@value": 2
+          },
+          "tls_key_password": {
+            "@type": "string",
+            "@value": ""
+          }
+        },
+        "static_fields": {},
+        "type": {
+          "@type": "string",
+          "@value": "org.graylog2.inputs.raw.tcp.RawTCPInput"
+        },
+        "global": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "extractors": []
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=4.0.6+40b7be5"
+        }
+      ]
+    }
+  ]
+}

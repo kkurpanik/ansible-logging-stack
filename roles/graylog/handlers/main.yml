@@ -1,0 +1,17 @@
+---
+- name: Restart Graylog server
+  listen: "restart graylog service"
+  service:
+    name: "graylog-server"
+    state: restarted
+
+- name: Wait for Graylog server to startup
+  listen: "restart graylog service"
+  uri:
+    url: "http://{{ graylog_http_bind_address }}"
+    status_code: 200
+    validate_certs: False
+  register: result
+  until: result.status == 200
+  retries: 60
+  delay: 5
