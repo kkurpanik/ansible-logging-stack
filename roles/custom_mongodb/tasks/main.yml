@@ -12,10 +12,9 @@
 
 - name: Install Pymongo library
   pip: 
-    name: " {{ item }} "
-  with_items:
-    - setuptools
-    - pymongo
+    name: "pymongo"
+    state: present
+    executable: pip3
 
 - name: Populate service facts
   service_facts:
