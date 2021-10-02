@@ -49,6 +49,7 @@
     mode: "0644"
     force: yes
   delegate_to: localhost
+  changed_when: false
   tags: content_pack
 
 - name: Save custom content pack as json variable
