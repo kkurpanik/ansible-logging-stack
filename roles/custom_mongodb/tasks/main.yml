@@ -13,6 +13,7 @@
 - name: Install Pymongo library
   pip: 
     name: pymongo
+    executable: pip3
 
 - name: Populate service facts
   service_facts:
