@@ -3,7 +3,7 @@
 extends: default
 
 ignore: |
-  ../../../.cache/
+  /Users/runner/.cache/
 
 rules:
   braces:
