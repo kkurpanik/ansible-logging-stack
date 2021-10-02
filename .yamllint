@@ -2,6 +2,9 @@
 # Based on ansible-lint config
 extends: default
 
+ignore: |
+  ./../.ansible/roles/
+
 rules:
   braces:
     max-spaces-inside: 1
