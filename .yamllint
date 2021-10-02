@@ -3,8 +3,8 @@
 extends: default
 
 ignore: |
-  *roles/mongodb
-  *roles/elasticsearch
+  *roles/mongodb/
+  *roles/elasticsearch/
 
 rules:
   braces:
