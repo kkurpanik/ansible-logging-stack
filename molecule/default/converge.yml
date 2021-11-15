@@ -27,7 +27,7 @@
   become: true
   gather_facts: true
   roles:
-    - name: nginx-proxy-role
+    - name: nginx
   vars:
     graylog_fqdn: "graylog.YourDomain.pl"
     bind_ip: "127.0.0.1"
