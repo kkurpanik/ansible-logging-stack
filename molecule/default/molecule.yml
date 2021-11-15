@@ -14,16 +14,16 @@ lint: |
 platforms:
   - name: centos7
     box: centos/7
-    memory: 1024
-    cpus: 1
+    memory: 8192
+    cpus: 2
   - name: centos8
     box: centos/8
-    memory: 1024
-    cpus: 1
+    memory: 8192
+    cpus: 2
   - name: debian11
     box: debian/bullseye64
-    memory: 1024
-    cpus: 1
+    memory: 8192
+    cpus: 2
 provisioner:
   name: ansible
 verifier:
