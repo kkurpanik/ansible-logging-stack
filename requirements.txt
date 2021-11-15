@@ -4,6 +4,8 @@ molecule
 molecule-vagrant
 python-vagrant
 pytest-testinfra
+testinfra
+flake8
 yamllint
 wheel
 jmespath
