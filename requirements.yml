@@ -7,6 +7,6 @@
   src: https://github.com/elastic/ansible-elasticsearch.git
   version: v7.14.0
 
-- name: nginx
+- name: nginx-proxy-role
   src: https://github.com/kkurpanik/ansible-roles-nginx-proxy.git
   version: 1.0.2
