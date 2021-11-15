@@ -1,11 +1,11 @@
 ---
-- name: Install pip and setuptools
+- name: Install pip (Debian)
   apt:
     name: "{{ item }}"
     state: present
+    update_cache: true
   register: _pkg
   until: _pkg is succeeded
   retries: 5
   with_items:
     - python3-pip
-    - python3-setuptools
