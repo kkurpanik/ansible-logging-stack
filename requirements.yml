@@ -9,4 +9,4 @@
 
 - name: nginx
   src: https://github.com/kkurpanik/ansible_roles_nginx_proxy.git
-  version: 1.0.3
+  version: 1.0.4
