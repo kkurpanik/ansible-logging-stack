@@ -124,5 +124,6 @@
     path: "/tmp/content-pack-graylog-custom.json"
     state: absent
   delegate_to: localhost
+  become: false
   changed_when: false
   tags: content_pack

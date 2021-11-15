@@ -3,6 +3,7 @@
   apt:
     name: "{{ item }}"
     state: present
+    update_cache: true
   register: _pkg
   until: _pkg is succeeded
   retries: 5
