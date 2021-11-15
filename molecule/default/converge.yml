@@ -22,7 +22,7 @@
         pwd: "YourPassword"
         roles: "readWrite,dbAdmin"
 
-- name: Setup NGNIX
+- name: Setup NGINX
   hosts: all
   become: true
   gather_facts: true
