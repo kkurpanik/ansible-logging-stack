@@ -1,6 +1,7 @@
 exclude_paths:
   - ./venv/
   - ../../.ansible/roles/
+  - ../.cache/
   - /Users/runner/.cache/
 parseable: true
 quiet: true
