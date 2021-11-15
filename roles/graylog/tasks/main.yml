@@ -49,6 +49,7 @@
     mode: "0644"
     force: yes
   delegate_to: localhost
+  become: false
   changed_when: false
   tags: content_pack
 
